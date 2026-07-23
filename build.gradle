@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+}
+
+group = 'cn.ellan'
+version = '1.3.2'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url = uri('https://repo.papermc.io/repository/maven-public/') }
+    maven { url = uri('https://repo.extendedclip.com/content/repositories/placeholderapi/') }
+    maven { url = uri('https://repo.momirealms.net/releases/') }
+    maven { url = uri('https://repo.zmenu.dev/releases/') }
+}
+
+def craftEngineJar = providers.gradleProperty('craftEngineJar')
+        .map { file(it) }
+        .orNull
+def zMenuJar = providers.gradleProperty('zMenuJar')
+        .map { file(it) }
+        .orNull
+
+dependencies {
+    compileOnly 'io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT'
+    compileOnly 'me.clip:placeholderapi:2.11.6'
+
+    if (craftEngineJar != null && craftEngineJar.isFile()) {
+        compileOnly files(craftEngineJar)
+    } else {
+        compileOnly 'net.momirealms:craft-engine-core:26.7.4'
+        compileOnly 'net.momirealms:craft-engine-bukkit:26.7.4'
+    }
+
+    if (zMenuJar != null && zMenuJar.isFile()) {
+        compileOnly files(zMenuJar)
+    } else {
+        compileOnly 'fr.maxlego08:zMenu:1.1.1.6'
+    }
+}
+
+tasks.processResources {
+    filesMatching('plugin.yml') {
+        expand(version: project.version)
+    }
+}
+
+tasks.jar {
+    archiveBaseName = 'EllanRecipeBridge'
+}

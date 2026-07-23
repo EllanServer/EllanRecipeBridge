@@ -1,0 +1,21 @@
+name: EllanRecipeBridge
+version: '${version}'
+main: cn.ellan.recipebridge.EllanRecipeBridge
+api-version: '1.21'
+folia-supported: true
+depend:
+  - CraftEngine
+  - zMenu
+  - PlaceholderAPI
+commands:
+  ellanrecipesubmit:
+    description: Submit one CraftEngine item to unlock an Ellan cookbook entry.
+    usage: /ellanrecipesubmit <namespace:id>
+    permission: ellanrecipe.submit
+  ellanbrewsubmit:
+    description: Submit one sealed The Brewing Project brew to unlock an Ellan brewing journal entry.
+    usage: /ellanbrewsubmit <recipe-id>
+    permission: ellanrecipe.submit
+permissions:
+  ellanrecipe.submit:
+    default: true
