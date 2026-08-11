@@ -42,6 +42,7 @@ implements Listener {
     private static final NamespacedKey BREWERY_VERSION = new NamespacedKey("brewery", "version");
     private DataManager dataManager;
     private InventoryManager inventoryManager;
+    private RecipeSearchService recipeSearchService;
     private boolean playerDataReloadScheduled;
 
     public void onEnable() {
@@ -53,6 +54,8 @@ implements Listener {
             return;
         }
         Bukkit.getPluginManager().registerEvents((Listener)this, (Plugin)this);
+        this.recipeSearchService = new RecipeSearchService(this, this.inventoryManager);
+        this.recipeSearchService.enable();
         this.getLogger().info("\u827e\u5c14\u5c9a\u98df\u8c31 CE \u7269\u54c1\u63d0\u4ea4\u6865\u63a5\u5df2\u542f\u7528\u3002");
         if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             new RecipePlaceholderExpansion().register();
@@ -62,15 +65,28 @@ implements Listener {
     }
 
     public boolean onCommand(CommandSender commandSender, Command command, String string, String[] stringArray) {
+        if (command.getName().equalsIgnoreCase("ellanrecipereload")) {
+            return this.recipeSearchService.reload(commandSender);
+        }
         if (!(commandSender instanceof Player)) {
             commandSender.sendMessage("This command can only be used by a player.");
             return true;
         }
         Player player = (Player)commandSender;
+        if (command.getName().equalsIgnoreCase("ellanrecipesearch")) {
+            return this.recipeSearchService.search(player, stringArray);
+        }
         if (command.getName().equalsIgnoreCase("ellanbrewsubmit")) {
             return this.submitSealedBrew(player, stringArray);
         }
         return this.submitCraftEngineItem(player, stringArray);
+    }
+
+    @Override
+    public void onDisable() {
+        if (this.recipeSearchService != null) {
+            this.recipeSearchService.disable();
+        }
     }
 
     private boolean submitCraftEngineItem(Player player, String[] stringArray) {

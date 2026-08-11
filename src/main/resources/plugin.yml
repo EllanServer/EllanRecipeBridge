@@ -16,6 +16,18 @@ commands:
     description: Submit one sealed The Brewing Project brew to unlock an Ellan brewing journal entry.
     usage: /ellanbrewsubmit <recipe-id>
     permission: ellanrecipe.submit
+  ellanrecipesearch:
+    description: Search one of the Ellan recipe menus by display name.
+    usage: /ellanrecipesearch <recipebook|ellan_recipe|ellan_brewing> <query>
+    permission: ellanrecipe.search
+  ellanrecipereload:
+    description: Reload zMenu and all Ellan recipe search inventories.
+    usage: /ellanrecipereload
+    permission: ellanrecipe.reload
 permissions:
   ellanrecipe.submit:
     default: true
+  ellanrecipe.search:
+    default: true
+  ellanrecipe.reload:
+    default: op

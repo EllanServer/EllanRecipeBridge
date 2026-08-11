@@ -1,0 +1,64 @@
+name: '&f<shift:-8><font:gui><image:default:brewing_recipe>'
+size: 54
+enable: true
+
+fillItem:
+  material: 'craftengine:internal:mpty_slot'
+  name: ' '
+  lore:
+    - '<dark_gray><strikethrough>----------------------------</strikethrough>'
+    - '<gold>艾尔岚酿造志'
+    - '<gray>这里显示名称中包含搜索关键词的酒谱。'
+    - '<gray>研究进度、线索与提交功能均与主菜单一致。'
+    - '<dark_gray><strikethrough>----------------------------</strikethrough>'
+
+items:
+  search_results:
+    type: ELLAN_RECIPE_SEARCH
+    source-menu: 'ellan_brewing'
+    button-prefixes:
+      - 'brew_'
+      - 'tavern_'
+    slots:
+      - '13-17'
+      - '22-26'
+      - '31-35'
+      - '40-44'
+    item:
+      material: 'craftengine:internal:mpty_slot'
+      name: ' '
+  previous:
+    type: PREVIOUS
+    slot: 49
+    item:
+      material: 'craftengine:internal:mpty_slot'
+      name: '<yellow>上一页'
+      lore:
+        - '<gray>查看上一页搜索结果'
+    else:
+      item:
+        material: 'craftengine:internal:mpty_slot'
+        name: '<dark_gray>已经是第一页'
+  return:
+    slot: 51
+    is-permanent: true
+    item:
+      material: 'craftengine:internal:79102'
+      name: '<gold>返回完整酿造志'
+      lore:
+        - '<gray>返回未筛选的全部酒谱'
+    actions:
+      - type: inventory
+        inventory: 'ellan_brewing'
+  next:
+    type: NEXT
+    slot: 53
+    item:
+      material: 'craftengine:internal:mpty_slot'
+      name: '<yellow>下一页'
+      lore:
+        - '<gray>查看下一页搜索结果'
+    else:
+      item:
+        material: 'craftengine:internal:mpty_slot'
+        name: '<dark_gray>已经是最后一页'

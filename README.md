@@ -9,6 +9,7 @@
 - 归档一次零星失败笔记；其不会推进星级，但会避免重复消耗同类失败酒样。
 - 在玩家加入后延迟刷新 zMenu 共享玩家数据，支持跨服传送后的菜单读取。
 - 注册 PlaceholderAPI 占位符，用于在 zMenu 菜单中展示酒谱研究状态。
+- 为配方书、艾尔岚食谱和艾尔岚酿造志提供聊天关键词搜索，并连续分页展示匹配项。
 
 ## 前置依赖
 
@@ -27,6 +28,8 @@
 | --- | --- | --- |
 | `/ellanrecipesubmit <namespace:id>` | 提交一个 CraftEngine 成品，例如 `ellan:apple_pie`。 | `ellanrecipe.submit` |
 | `/ellanbrewsubmit <recipe-id>` | 提交一个已封口的酒样并推进对应酒谱研究。 | `ellanrecipe.submit` |
+| `/ellanrecipesearch <menu> <query>` | 按显示名称搜索指定配方菜单。 | `ellanrecipe.search` |
+| `/ellanrecipereload` | 重载 zMenu 与三个配方搜索页。 | `ellanrecipe.reload` |
 
 `ellanrecipe.submit` 默认授予所有玩家。命令通常应由 zMenu 的按钮调用；插件会校验参数格式、物品归属和可推进的研究等级。
 
@@ -59,7 +62,7 @@ CraftEngine 或 zMenu 的官方 Maven 仓库在部分网络环境中可能出现
   build
 ```
 
-构建产物位于 `build/libs/EllanRecipeBridge-1.3.2.jar`。该仓库不会提交构建产物、第三方 JAR 或服务器数据。
+构建产物位于 `build/libs/EllanRecipeBridge-1.4.0.jar`。该仓库不会提交构建产物、第三方 JAR 或服务器数据。
 
 ## 许可证
 
